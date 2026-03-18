@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perfis - Controle de BMs</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="brand-box">
+          <div class="brand-icon">BM</div>
+          <div>
+            <div class="brand-title">Controle de BM's</div>
+            <div class="brand-subtitle">Movy Digital</div>
+          </div>
+        </div>
+      </div>
+
+
+      <nav class="sidebar-menu">
+        <a class="menu-item" href="/dashboard.html">Dashboard</a>
+        <a class="menu-item active" href="/perfis.html">Perfis</a>
+        <a class="menu-item" href="/status.html">Status</a>
+        <a class="menu-item" href="/relatorios.html">Relatórios</a>
+      </nav>
+
+<div class="sidebar-footer">
+  <a href="/dashboard" class="logout-btn">
+    📊 Voltar ao Painel
+  </a>
+</div>
+    </aside>
+
+    <main class="content">
+      <header class="hero-bar">
+        <div>
+          <h1>Gerênciamento de Perfis</h1>
+        </div>
+      </header>
+
+      <section class="panel-box">
+        <div class="panel-title-row">
+          <h2>Novo Perfil</h2>
+        </div>
+
+        <div class="form-row">
+          <input type="text" id="perfilNome" placeholder="Nome do perfil" />
+          <button class="primary-btn" type="button" onclick="criarPerfil()">Salvar Perfil</button>
+        </div>
+      </section>
+
+      <section class="panel-box">
+        <div class="panel-title-row">
+          <h2>Nova BM</h2>
+        </div>
+
+        <div class="form-grid">
+          <select id="perfilSelect">
+            <option value="">Selecione um perfil</option>
+          </select>
+
+          <input type="text" id="bmNome" placeholder="Nome da BM" />
+
+          <select id="bmStatus">
+            <option>🔎 Em análise</option>
+            <option>🚀 250 disparos</option>
+            <option>⚡ 2.000 disparos</option>
+            <option>🔥 10.000 disparos</option>
+            <option>👑 100.000 disparos</option>
+          </select>
+
+          <input type="text" id="bmObservacao" placeholder="Observação (opcional)" />
+
+          <button class="primary-btn" type="button" onclick="criarBM()">Salvar BM</button>
+        </div>
+      </section>
+
+      <section class="panel-box">
+        <div class="panel-title-row">
+          <h2>Relatório</h2>
+          <span id="contadorListaPerfis" class="count-chip">0 registros</span>
+        </div>
+
+        <div class="form-grid">
+          <input
+            type="text"
+            id="buscaNomePerfis"
+            placeholder="Buscar pelo nome da BM"
+            oninput="digitarBuscaPerfis()"
+          />
+
+          <select id="filtroPerfilPerfis" onchange="atualizarListaPerfis()">
+            <option value="">Todos os perfis</option>
+          </select>
+
+          <button class="secondary-btn" type="button" onclick="limparFiltrosPerfis()">
+            Limpar filtros
+          </button>
+        </div>
+
+        <div class="table-wrap perfis-list-wrap">
+          <table class="simple-table">
+            <thead>
+              <tr>
+                <th>Perfil</th>
+                <th>BM</th>
+                <th>Status</th>
+                <th>Observação</th>
+                <th>Atualizada em</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="listaPerfisTable"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/perfis.js"></script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Relatórios - Controle de BMs</title>
+  <link rel="stylesheet" href="/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="brand-box">
+          <div class="brand-icon">BM</div>
+          <div>
+            <div class="brand-title">Controle de BM's</div>
+            <div class="brand-subtitle">Movy Digital</div>
+          </div>
+        </div>
+      </div>
+
+
+      <nav class="sidebar-menu">
+        <a class="menu-item" href="/dashboard.html">Dashboard</a>
+        <a class="menu-item" href="/perfis.html">Perfis</a>
+        <a class="menu-item" href="/status.html">Status</a>
+        <a class="menu-item active" href="/relatorios.html">Relatórios</a>
+      </nav>
+
+<div class="sidebar-footer">
+  <a href="/dashboard" class="logout-btn">
+    📊 Voltar ao Painel
+  </a>
+</div>
+    </aside>
+
+    <main class="content">
+      <header class="hero-bar">
+        <div>
+          <h1>Relatórios</h1>
+        </div>
+      </header>
+
+      <section class="panel-box">
+        <div class="panel-title-row">
+          <h2>Distribuição por status</h2>
+        </div>
+
+        <div class="chart-box">
+          <canvas id="statusChart"></canvas>
+        </div>
+      </section>
+
+      <section class="panel-box">
+        <div class="panel-title-row">
+          <h2>Ranking de perfis</h2>
+        </div>
+
+        <div class="table-wrap">
+          <table class="simple-table">
+            <thead>
+              <tr>
+                <th>Perfil</th>
+                <th>Total de BMs</th>
+              </tr>
+            </thead>
+            <tbody id="rankingPerfisTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel-box">
+        <div class="panel-title-row">
+          <h2>BMs Api Disparo</h2>
+        </div>
+
+        <div class="table-wrap">
+          <table class="simple-table">
+            <thead>
+              <tr>
+                <th>Perfil</th>
+                <th>BM</th>
+                <th>Status</th>
+                <th>Atualizada em</th>
+              </tr>
+            </thead>
+            <tbody id="bmsGrandesTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel-box">
+        <div class="panel-title-row">
+          <h2>BMs em análise</h2>
+        </div>
+
+        <div class="table-wrap">
+          <table class="simple-table">
+            <thead>
+              <tr>
+                <th>Perfil</th>
+                <th>BM</th>
+                <th>Status</th>
+                <th>Atualizada em</th>
+              </tr>
+            </thead>
+            <tbody id="bmsAnaliseTable"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/relatorios.js"></script>
+</body>
+</html>
