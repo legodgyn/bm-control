@@ -46,12 +46,6 @@ function getBarraStatusClass(status) {
   return '';
 }
 
-function setStatusAtivo(status) {
-  statusSelecionado = status;
-  atualizarBotoesStatus();
-  carregarListaStatus();
-}
-
 function atualizarBotoesStatus() {
   document.querySelectorAll('.status-filter-btn').forEach((btn) => {
     btn.classList.remove('active');
@@ -61,8 +55,35 @@ function atualizarBotoesStatus() {
   if (alvo) alvo.classList.add('active');
 }
 
+function setStatusAtivo(status) {
+  statusSelecionado = status;
+  atualizarBotoesStatus();
+  carregarListaStatus();
+}
+
+async function carregarPerfisFiltro() {
+  const res = await fetch('/api/bm-control/perfis');
+  const perfis = await res.json();
+
+  const select = document.getElementById('filtroPerfil');
+  if (!select) return;
+
+  select.innerHTML = '<option value="">Todos os perfis</option>';
+
+  if (Array.isArray(perfis)) {
+    perfis.forEach((perfil) => {
+      select.innerHTML += `<option value="${perfil.id}">${escapeHtml(perfil.nome)}</option>`;
+    });
+  }
+}
+
+function getFiltroPerfil() {
+  const el = document.getElementById('filtroPerfil');
+  return el ? el.value : '';
+}
+
 async function atualizarStatus(id, novoStatus) {
-  const res = await fetch(`/api/bms/${id}/status`, {
+  const res = await fetch(`/api/bm-control/bms/${id}/status`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ status: novoStatus })
@@ -83,7 +104,7 @@ async function excluirBM(id) {
   const confirmar = confirm('Tem certeza que deseja excluir esta BM?');
   if (!confirmar) return;
 
-  const res = await fetch(`/api/bms/${id}`, {
+  const res = await fetch(`/api/bm-control/bms/${id}`, {
     method: 'DELETE'
   });
 
@@ -105,7 +126,7 @@ async function editarBM(id, nomeAtual, observacaoAtual, perfilAtual, statusAtual
   const novaObservacao = prompt('Digite a observação da BM:', observacaoAtual || '');
   if (novaObservacao === null) return;
 
-  const res = await fetch(`/api/bms/${id}`, {
+  const res = await fetch(`/api/bm-control/bms/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -128,7 +149,7 @@ async function editarBM(id, nomeAtual, observacaoAtual, perfilAtual, statusAtual
 }
 
 async function carregarResumoStatus() {
-  const res = await fetch('/api/bms/resumo');
+  const res = await fetch('/api/bm-control/bms/resumo');
   const resumo = await res.json();
 
   document.getElementById('countAnalise').textContent = resumo.emAnalise ?? 0;
@@ -139,7 +160,14 @@ async function carregarResumoStatus() {
 }
 
 async function carregarListaStatus() {
-  const res = await fetch('/api/bms');
+  const perfil_id = getFiltroPerfil();
+  let url = '/api/bm-control/bms';
+
+  if (perfil_id) {
+    url += `?perfil_id=${encodeURIComponent(perfil_id)}`;
+  }
+
+  const res = await fetch(url);
   const bms = await res.json();
 
   const lista = document.getElementById('statusCards');
@@ -148,7 +176,7 @@ async function carregarListaStatus() {
   lista.innerHTML = '';
 
   if (!Array.isArray(bms)) {
-    contador.textContent = '0 registros';
+    contador.textContent = '0 registro(s)';
     lista.innerHTML = `<div class="empty-state">Não foi possível carregar os registros.</div>`;
     return;
   }
@@ -160,7 +188,7 @@ async function carregarListaStatus() {
   contador.textContent = `${filtradas.length} registro(s)`;
 
   if (filtradas.length === 0) {
-    lista.innerHTML = `<div class="empty-state">Nenhuma BM encontrada para esse status.</div>`;
+    lista.innerHTML = `<div class="empty-state">Nenhuma BM encontrada para esse filtro.</div>`;
     return;
   }
 
@@ -209,9 +237,17 @@ async function carregarListaStatus() {
 }
 
 async function iniciar() {
+  await carregarPerfisFiltro();
   await carregarResumoStatus();
   await carregarListaStatus();
   atualizarBotoesStatus();
+
+  const selectPerfil = document.getElementById('filtroPerfil');
+  if (selectPerfil) {
+    selectPerfil.addEventListener('change', () => {
+      carregarListaStatus();
+    });
+  }
 }
 
 iniciar();
