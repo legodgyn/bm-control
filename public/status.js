@@ -62,7 +62,7 @@ function setStatusAtivo(status) {
 }
 
 async function carregarPerfisFiltro() {
-  const res = await fetch('/api/bm-control/perfis');
+  const res = await fetch('/api/perfis');
   const perfis = await res.json();
 
   const select = document.getElementById('filtroPerfil');
@@ -83,7 +83,7 @@ function getFiltroPerfil() {
 }
 
 async function atualizarStatus(id, novoStatus) {
-  const res = await fetch(`/api/bm-control/bms/${id}/status`, {
+  const res = await fetch(`/api/bms/${id}/status`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ status: novoStatus })
@@ -104,7 +104,7 @@ async function excluirBM(id) {
   const confirmar = confirm('Tem certeza que deseja excluir esta BM?');
   if (!confirmar) return;
 
-  const res = await fetch(`/api/bm-control/bms/${id}`, {
+  const res = await fetch(`/api/bms/${id}`, {
     method: 'DELETE'
   });
 
@@ -126,7 +126,7 @@ async function editarBM(id, nomeAtual, observacaoAtual, perfilAtual, statusAtual
   const novaObservacao = prompt('Digite a observação da BM:', observacaoAtual || '');
   if (novaObservacao === null) return;
 
-  const res = await fetch(`/api/bm-control/bms/${id}`, {
+  const res = await fetch(`/api/bms/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -149,7 +149,7 @@ async function editarBM(id, nomeAtual, observacaoAtual, perfilAtual, statusAtual
 }
 
 async function carregarResumoStatus() {
-  const res = await fetch('/api/bm-control/bms/resumo');
+  const res = await fetch('/api/bms/resumo');
   const resumo = await res.json();
 
   document.getElementById('countAnalise').textContent = resumo.emAnalise ?? 0;
@@ -161,7 +161,7 @@ async function carregarResumoStatus() {
 
 async function carregarListaStatus() {
   const perfil_id = getFiltroPerfil();
-  let url = '/api/bm-control/bms';
+  let url = '/api/bms';
 
   if (perfil_id) {
     url += `?perfil_id=${encodeURIComponent(perfil_id)}`;
