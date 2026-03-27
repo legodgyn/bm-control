@@ -72,7 +72,7 @@ router.get('/resumo', async (req, res) => {
   for (const item of data) {
     resumo.total += 1;
 
-    if (item.status === 'Em análise') resumo.emAnalise += 1;
+    if (item.status === 'Vendidas') resumo.emAnalise += 1;
     if (item.status === '250 disparos') resumo.status250 += 1;
     if (item.status === '2.000 disparos') resumo.status2000 += 1;
     if (item.status === '10.000 disparos') resumo.status10000 += 1;
