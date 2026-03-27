@@ -62,7 +62,7 @@ router.get('/resumo', async (req, res) => {
 
   const resumo = {
     total: 0,
-    emAnalise: 0,
+    vendidas: 0,
     status250: 0,
     status2000: 0,
     status10000: 0,
