@@ -19,7 +19,7 @@ function formatarData(dataIso) {
 }
 
 function getClasseStatus(status) {
-  if (status === 'Em análise') return 'badge badge-analise';
+  if (status === 'Vendidas') return 'badge badge-analise';
   if (status === '250 disparos') return 'badge badge-250';
   if (status === '2.000 disparos') return 'badge badge-2000';
   if (status === '10.000 disparos') return 'badge badge-10000';
@@ -29,7 +29,7 @@ function getClasseStatus(status) {
 
 function contarPorStatus(bms) {
   return {
-    'Em análise': bms.filter((bm) => bm.status === 'Em análise').length,
+    'Vendidas': bms.filter((bm) => bm.status === 'Vendidas').length,
     '250 disparos': bms.filter((bm) => bm.status === '250 disparos').length,
     '2.000 disparos': bms.filter((bm) => bm.status === '2.000 disparos').length,
     '10.000 disparos': bms.filter((bm) => bm.status === '10.000 disparos').length,
@@ -111,12 +111,12 @@ function criarGraficoStatus(contagem) {
   window.statusChartInstance = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Em análise', '250', '2.000', '10.000', '100.000'],
+      labels: ['Vendidas', '250', '2.000', '10.000', '100.000'],
       datasets: [
         {
           label: 'Quantidade de BMs',
           data: [
-            contagem['Em análise'],
+            contagem['Vendidas'],
             contagem['250 disparos'],
             contagem['2.000 disparos'],
             contagem['10.000 disparos'],
@@ -180,7 +180,7 @@ async function carregarRelatorios() {
   );
   montarTabela(bmsGrandes, 'bmsGrandesTable', 'bm');
 
-  const bmsAnalise = bms.filter((bm) => bm.status === 'Em análise');
+  const bmsAnalise = bms.filter((bm) => bm.status === 'Vendidas');
   montarTabela(bmsAnalise, 'bmsAnaliseTable', 'bm');
 }
 
