@@ -152,7 +152,7 @@ async function carregarResumoStatus() {
   const res = await fetch('/api/bms/resumo');
   const resumo = await res.json();
 
-  document.getElementById('countAnalise').textContent = resumo.emAnalise ?? 0;
+  document.getElementById('countAnalise').textContent = resumo.vendidas ?? 0;
   document.getElementById('count250').textContent = resumo.status250 ?? 0;
   document.getElementById('count2000').textContent = resumo.status2000 ?? 0;
   document.getElementById('count10000').textContent = resumo.status10000 ?? 0;
