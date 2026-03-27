@@ -140,7 +140,7 @@ async function carregarResumo() {
   const resumo = await res.json();
 
   document.getElementById('statTotal').textContent = resumo.total ?? 0;
-  document.getElementById('statAnalise').textContent = resumo.emAnalise ?? 0;
+  document.getElementById('statAnalise').textContent = resumo.vendidas ?? 0;
   document.getElementById('stat250').textContent = resumo.status250 ?? 0;
   document.getElementById('stat2000').textContent = resumo.status2000 ?? 0;
   document.getElementById('stat10000').textContent = resumo.status10000 ?? 0;
