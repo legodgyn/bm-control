@@ -1,5 +1,5 @@
 const STATUS = [
-  'Em análise',
+  'Vendidas',
   '250 disparos',
   '2.000 disparos',
   '10.000 disparos',
@@ -30,7 +30,7 @@ function formatarData(dataIso) {
 }
 
 function getClasseStatus(status) {
-  if (status === 'Em análise') return 'badge badge-analise';
+  if (status === 'Vendidas') return 'badge badge-analise';
   if (status === '250 disparos') return 'badge badge-250';
   if (status === '2.000 disparos') return 'badge badge-2000';
   if (status === '10.000 disparos') return 'badge badge-10000';
@@ -153,7 +153,7 @@ async function criarBM() {
   }
 
   document.getElementById('bmNome').value = '';
-  document.getElementById('bmStatus').value = 'Em análise';
+  document.getElementById('bmStatus').value = 'Vendidas';
   document.getElementById('bmObservacao').value = '';
 
   await atualizarTela();
