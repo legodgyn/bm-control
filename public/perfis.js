@@ -119,7 +119,7 @@ async function criarBM() {
   }
 
   document.getElementById('bmNome').value = '';
-  document.getElementById('bmStatus').value = 'Em análise';
+  document.getElementById('bmStatus').value = 'Vendidas';
   document.getElementById('bmObservacao').value = '';
 
   await atualizarListaPerfis();
